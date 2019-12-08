@@ -3,18 +3,24 @@ import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
 import CheckBox from 'react-native-check-box'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 
-export default function SearchLayout() {
+export default function SearchLayout({ setSearchText }) {
 
     const [state, setState] = useState({
         searchByName: true,
-        searchByCountry: false
+        searchByCountry: false,
+        searchText: ''
     })
 
     return (
         <View style={styles.container}>
             <View style={styles.searchBarContainer}>
-                <TextInput style={styles.searchBar} placeholder='Search' />
-                <TouchableOpacity style={styles.searchButton}>
+                <TextInput style={styles.searchBar} placeholder='Search'
+                    onChangeText={value => setState({ ...state, searchText: value })} />
+                <TouchableOpacity style={styles.searchButton} onPress={() => {
+                    if (state.searchText) {
+                        setSearchText(state.searchText)
+                    }
+                }}>
                     <FeatherIcon name="search" size={20} color="#fff" />
                 </TouchableOpacity>
             </View>

@@ -1,49 +1,41 @@
 import React from 'react'
 import {
     StyleSheet, View, Text, FlatList, TouchableOpacity,
-    SafeAreaView,
+    SafeAreaView, ScrollView
 } from 'react-native'
+import GridItem from './GridItem'
 
 export default function MainLayout({ universitiesData }) {
 
-    renderGridItem = ({ universityData, index }) => (
-        <TouchableOpacity>
-            <View style={styles.cardContainer}>
-                <Text>{index}</Text>
-            </View>
-        </TouchableOpacity>
-    )
-
     return (
-        <SafeAreaView>
-            <View style={styles.container}>
-                <FlatList
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                {/* <FlatList
                     data={universitiesData}
                     keyExtractor={universityData => universityData.name}
                     renderItem={this.renderGridItem}
-                />
-            </View>
+                    horizontal={false}
+                    numColumns={2}
+                    contentContainerStyle={styles.gridLayout} /> */}
+                <View style={styles.gridLayout}>
+                    {universitiesData.map((universityData, index) => {
+                        return <GridItem universityData={universityData} index={index} key={index} />
+                    })}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        width: '100%',
+        flex: 1,
         paddingTop: 30,
     },
-    cardContainer: {
-        backgroundColor: '#fff',
-        marginBottom: 15,
-        height: 120,
-        shadowColor: '#fff',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 1.41,
-        elevation: 2
+    gridLayout: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap'
     }
 });

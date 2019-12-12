@@ -1,37 +1,87 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     StyleSheet, View, Text, TouchableOpacity,
+    AsyncStorage
 } from 'react-native'
+import Toast from 'react-native-simple-toast'
 import Entypo from 'react-native-vector-icons/Entypo'
 
-const colors = [
-    '#000066', '#ff0040', '#0040ff', '#C7C750', '#F95A05', '#54C750', '#50C7C7',
-    '#000066', '#ff0040', '#0040ff'
-]
+export default function GridItem({ universityData, index, openWebsite, addToFavourites }) {
 
-const generateAlias = (name) => {
-    const arr = name.split(' ')
-    return `${arr[0].charAt(0)}${arr[1].charAt(0)}`
-}
+    const [state, setState] = useState({
+        uniData: universityData
+    })
 
-export default function GridItem({ universityData, index }) {
+
+    isInFavourites = (universityData) => {
+        let value = false
+        // AsyncStorage.getItem('favourites').then(result => {
+        //     if (result.length > 0) {
+        //         console.log(result.length)
+        //         let favourites = JSON.parse(result)
+        //         const fav = favourites.find(favourite => favourite.name == universityData.name)
+        //         if (fav) {
+        //             value = true
+        //         }
+        //     }
+        // })
+        return value
+    }
+
+    addToFavourites = async (universityData) => {
+        let favourites = await AsyncStorage.getItem('favourites'), fav = {}
+        if (favourites) {
+            favourites = JSON.parse(favourites)
+            if (favourites.length > 0) {
+                fav = favourites.find(favourite => favourite.name == universityData.name)
+                if (!fav) {
+                    favourites.push(universityData)
+                }
+            } else {
+                favourites.push(universityData)
+                AsyncStorage.setItem('favourites', JSON.stringify(favourites)).then()
+                let dummy = await AsyncStorage.getItem('favourites')
+                console.log(dummy)
+                Toast.show(
+                    'Added to favourites',
+                    Toast.SHORT
+                )
+            }
+        }
+    }
+
+    generateAlias = (name) => {
+        const arr = name.split(' ')
+        return `${arr[0].charAt(0)}${arr[1].charAt(0)}`
+    }
+
     return (
-        <TouchableOpacity style={styles.cardContainer}>
+        <View style={styles.cardContainer}>
             <View style={styles.cardLayout}>
                 <View style={styles.multiLayout1}>
-                    <Text style={[styles.aliasText, { backgroundColor: '#ddd' }]}>{generateAlias(universityData.name)}</Text>
-                    <Text style={styles.nameText} numberOfLines={2} >{universityData.name}</Text>
+                    <View style={styles.aliasContainer}>
+                        <Text style={styles.aliasText}>{generateAlias(state.uniData.name)}</Text>
+                    </View>
+                    <Text style={styles.nameText} numberOfLines={2} >{state.uniData.name}</Text>
                 </View>
                 <View style={styles.multiLayout2}>
-                    <TouchableOpacity style={styles.goToWebsiteLayout}>
+                    <TouchableOpacity style={styles.goToWebsiteLayout} onPress={() => {
+                        openWebsite(state.uniData.web_pages[0])
+                    }}>
                         <Text style={styles.goToWebsiteText}>Visit Website</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Entypo name="heart-outlined" size={20} color="#ec667a" />
+                    <TouchableOpacity onPress={() => {
+                        addToFavourites(state.uniData)
+                    }}>
+                        {isInFavourites(state.uniData) ? (
+                            <Entypo name="heart" size={20} color="#ec667a" />
+                        ) : (
+                                <Entypo name="heart-outlined" size={20} color="#ec667a" />
+                            )}
                     </TouchableOpacity>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -62,10 +112,17 @@ const styles = StyleSheet.create({
         height: '75%',
         marginBottom: 10,
     },
+    aliasContainer: {
+        borderRadius: 20,
+        backgroundColor: '#ddd',
+        height: 35,
+        width: 35,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     aliasText: {
-        borderRadius: 50,
         fontSize: 16,
-        padding: 10,
         fontWeight: 'bold',
         color: '#ec667a'
     },

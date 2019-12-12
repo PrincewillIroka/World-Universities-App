@@ -1,24 +1,46 @@
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
 import CheckBox from 'react-native-check-box'
 import FeatherIcon from 'react-native-vector-icons/Feather'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function SearchLayout({ setSearchText }) {
+export default function SearchLayout({ setSearchText, setSearchCriterion }) {
 
     const [state, setState] = useState({
-        searchByName: true,
-        searchByCountry: false,
+        searchByName: false,
+        searchByCountry: true,
         searchText: ''
     })
+
+    changeSearchCriterion = () => {
+        if (state.searchByName) {
+            setSearchCriterion('getUniversitiesByName')
+        } else if (state.searchByCountry) {
+            setSearchCriterion('getUniversitiesByCountry')
+        }
+    }
+
+    clearSearchText = () => {
+        setState({ ...state, searchText: '' })
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.searchBarContainer}>
                 <TextInput style={styles.searchBar} placeholder='Search'
+                    defaultValue={state.searchText}
                     onChangeText={value => setState({ ...state, searchText: value })} />
+                {state.searchText != '' && <View style={styles.clearSearchContainer}>
+                    <TouchableOpacity onPress={() => {
+                        clearSearchText()
+                    }}>
+                        <AntDesign name="closecircleo" size={20} color="gray" />
+                    </TouchableOpacity>
+                </View>}
                 <TouchableOpacity style={styles.searchButton} onPress={() => {
                     if (state.searchText) {
                         setSearchText(state.searchText)
+                        Keyboard.dismiss()
                     }
                 }}>
                     <FeatherIcon name="search" size={20} color="#fff" />
@@ -27,16 +49,24 @@ export default function SearchLayout({ setSearchText }) {
             <View style={styles.optionsContainer}>
                 <CheckBox
                     style={styles.checkBoxStyle}
-                    onClick={() => {
-                        setState({ ...state, searchByName: !state.searchByName, searchByCountry: false })
+                    onClick={async () => {
+                        await setState({
+                            ...state, searchByName: !state.searchByName,
+                            searchByCountry: !state.searchByCountry
+                        })
+                        changeSearchCriterion()
                     }}
                     isChecked={state.searchByName}
                     leftText={"Name of University"}
                 />
                 <CheckBox
                     style={[styles.checkBoxStyle, styles.checkBoxStyle1]}
-                    onClick={() => {
-                        setState({ ...state, searchByName: false, searchByCountry: !state.searchByCountry })
+                    onClick={async () => {
+                        await setState({
+                            ...state, searchByName: !state.searchByName,
+                            searchByCountry: !state.searchByCountry
+                        })
+                        changeSearchCriterion()
                     }}
                     isChecked={state.searchByCountry}
                     leftText={"Country"}
@@ -88,13 +118,20 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         borderWidth: 1,
         borderColor: '#f0f0f0',
-        width: '85%',
+        flex: 1,
         height: '100%',
         fontSize: 16,
         paddingLeft: 16
     },
+    clearSearchContainer: {
+        backgroundColor: '#eee',
+        width: '20%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     searchButton: {
-        flex: 1,
+        width: '20%',
         backgroundColor: '#ec667a',
         alignItems: 'center',
         justifyContent: 'center',

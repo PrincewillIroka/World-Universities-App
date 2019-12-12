@@ -1,7 +1,10 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import FallingDrawer from 'react-native-falling-drawer';
-import AllUniversities from './src/views/AllUniversities'
+import AllUniversities from './src/views/AllUniversities';
+import About from './src/views/About';
+import AppDeveloper from './src/views/AppDeveloper';
+import Favourites from './src/views/Favourites';
 
 
 export default function App() {
@@ -17,11 +20,11 @@ export default function App() {
     },
     {
       key: "fav_universities",
-      name: "Favourite Universities",
+      name: "Favourites",
       color: "#f8af91",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><Text>Favourite Universities</Text></View>
+      render: () => <View style={styles.container}><Favourites /></View>
     },
     {
       key: "about_app",
@@ -29,7 +32,7 @@ export default function App() {
       color: "#695777",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><Text>About App</Text></View>
+      render: () => <View style={styles.container}><About /></View>
     },
     {
       key: "app_developer",
@@ -37,7 +40,7 @@ export default function App() {
       color: "#355878",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><Text>App Developer</Text></View>
+      render: () => <View style={styles.container}><AppDeveloper /></View>
     }
   ]
 

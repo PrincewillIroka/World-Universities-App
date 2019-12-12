@@ -9,7 +9,8 @@ import WebsiteModal from './WebsiteModal'
 export default function MainLayout({ universitiesData, scrolledToBottom }) {
 
     const [state, setState] = useState({
-        modalIsOpen: false
+        modalIsOpen: false,
+        activeUniData: ''
     })
 
     isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
@@ -17,6 +18,13 @@ export default function MainLayout({ universitiesData, scrolledToBottom }) {
         return layoutMeasurement.height + contentOffset.y >=
             contentSize.height - paddingToBottom;
     };
+
+    closeModal = () => {
+        setState({
+            ...state,
+            modalIsOpen: false
+        })
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -32,7 +40,9 @@ export default function MainLayout({ universitiesData, scrolledToBottom }) {
                         })
                     }}
                 >
-                    <WebsiteModal />
+                    <WebsiteModal activeUniData={state.activeUniData} closeModal={() => {
+                        closeModal()
+                    }} />
                 </Modal>
             )}
             <ScrollView showsVerticalScrollIndicator={false}
@@ -49,7 +59,8 @@ export default function MainLayout({ universitiesData, scrolledToBottom }) {
                                 if (website) {
                                     setState({
                                         ...state,
-                                        modalIsOpen: true
+                                        activeUniData: universityData.web_pages[0],
+                                        modalIsOpen: true,
                                     })
                                 }
                             }} />

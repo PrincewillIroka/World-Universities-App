@@ -18,7 +18,8 @@ export default function AllUniversities() {
         name: '',
         country: 'Nigeria',
         index: 0,
-        number: 10
+        number: 10,
+        refreshData: false
     })
 
     useEffect(() => {
@@ -26,7 +27,6 @@ export default function AllUniversities() {
     }, [])
 
     fetchUniversitiesData = async () => {
-        // const newUrl = state.url + state.searchText
         const newUrl = url + '/' + state.criterion
         const data = {
             name: state.name,
@@ -43,16 +43,18 @@ export default function AllUniversities() {
         })
             .then(response => response.json())
             .then(data => {
-                let newData = []
-                if (state.index >= 10) {
-                    newData = [...state.universitiesData, ...data]
+                if (data.length > 0) {
+                    let newData = []
+                    state.refreshData ? newData = data : newData = [...state.universitiesData, ...data]
+                    setState({
+                        ...state, isLoading: false, isLoading2: false, universitiesData: newData,
+                        index: (state.index + 10)
+                    })
                 } else {
-                    newData = data
+                    setState({
+                        ...state, isLoading: false, isLoading2: false
+                    })
                 }
-                setState({
-                    ...state, isLoading: false, isLoading2: false, universitiesData: newData,
-                    index: (state.index + 10)
-                })
             })
 
     }
@@ -65,14 +67,14 @@ export default function AllUniversities() {
         return isConnected
     }
 
-    handleSearch = () => {
+    handleSearch = async () => {
         if (checkNetwork)
             fetchUniversitiesData()
     }
 
     handleScrollToBottom = async () => {
         if (state.index >= 10) {
-            await setState({ ...state, isLoading2: true })
+            await setState({ ...state, isLoading2: true, refreshData: false })
             fetchUniversitiesData()
         }
     }
@@ -83,7 +85,6 @@ export default function AllUniversities() {
                 AsyncStorage.setItem('favourites', JSON.stringify([])).then()
             }
         })
-
     })()
 
     contentLayout = () => {
@@ -122,10 +123,12 @@ export default function AllUniversities() {
 
     return (
         <View style={styles.container}>
-            <SearchLayout setSearchText={async text => {
+            <SearchLayout setSearchText={async (text, searchByName, searchByCountry) => {
+                let name = '', country = ''
+                searchByName ? name = text : country = text
                 await setState({
                     ...state, searchText: text, isLoading: true,
-                    name: text, country: text
+                    name, country, refreshData: true, index: 0
                 })
                 handleSearch()
             }} setSearchCriterion={async criterion => {

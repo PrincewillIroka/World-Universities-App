@@ -39,7 +39,7 @@ export default function SearchLayout({ setSearchText, setSearchCriterion }) {
                 </View>}
                 <TouchableOpacity style={styles.searchButton} onPress={() => {
                     if (state.searchText) {
-                        setSearchText(state.searchText)
+                        setSearchText(state.searchText, state.searchByName, state.searchByCountry)
                         Keyboard.dismiss()
                     }
                 }}>

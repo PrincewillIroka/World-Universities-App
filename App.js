@@ -19,14 +19,6 @@ export default function App() {
       render: () => <View style={styles.container}><AllUniversities /></View>
     },
     {
-      key: "fav_universities",
-      name: "Favourites",
-      color: "#f8af91",
-      titleColor: "#fff",
-      hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><Favourites /></View>
-    },
-    {
       key: "about_app",
       name: "About App",
       color: "#695777",
@@ -41,6 +33,14 @@ export default function App() {
       titleColor: "#fff",
       hamburgerColor: "#fff",
       render: () => <View style={styles.container}><AppDeveloper /></View>
+    },
+    {
+      key: "fav_universities",
+      name: "Favourites",
+      color: "rgb(182, 119, 3)",
+      titleColor: "#fff",
+      hamburgerColor: "#fff",
+      render: () => <View style={styles.container}><Favourites /></View>
     }
   ]
 

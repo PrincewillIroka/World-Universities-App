@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     StyleSheet, View, Text, TouchableOpacity,
     AsyncStorage
@@ -6,53 +6,56 @@ import {
 import Toast from 'react-native-simple-toast'
 import Entypo from 'react-native-vector-icons/Entypo'
 
-export default function GridItem({ universityData, index, openWebsite, addToFavourites }) {
+export default function GridItem({ parentLayout, universityData, itemIndex,
+    addToFavourites, removeFromFavourites, openWebsite }) {
 
     const [state, setState] = useState({
-        uniData: universityData
+        isInFavourite: false
     })
 
-
-    isInFavourites = (universityData) => {
-        let value = false
-        // AsyncStorage.getItem('favourites').then(result => {
-        //     if (result.length > 0) {
-        //         console.log(result.length)
-        //         let favourites = JSON.parse(result)
-        //         const fav = favourites.find(favourite => favourite.name == universityData.name)
-        //         if (fav) {
-        //             value = true
-        //         }
-        //     }
-        // })
-        return value
-    }
-
-    addToFavourites = async (universityData) => {
-        let favourites = await AsyncStorage.getItem('favourites'), fav = {}
+    handleFavourites = async (uData, itemIndex) => {
+        let favourites = await AsyncStorage.getItem('favourites'), fav = {},
+            isUpdated = false, message = ''
         if (favourites) {
             favourites = JSON.parse(favourites)
             if (favourites.length > 0) {
-                fav = favourites.find(favourite => favourite.name == universityData.name)
-                if (!fav) {
-                    favourites.push(universityData)
+                fav = favourites.find((favourite, index) => favourite.name == uData.name)
+                if (fav) {
+                    favourites = favourites.filter(ud => ud.name != uData.name)
+                    removeFromFavourites(uData.name)
+                    message = 'Removed favourites'
+                    isUpdated = true
+                } else {
+                    addToFavourites(uData.name)
+                    favourites.push(uData)
+                    message = 'Added to favourites'
+                    isUpdated = true
                 }
             } else {
-                favourites.push(universityData)
-                AsyncStorage.setItem('favourites', JSON.stringify(favourites)).then()
-                let dummy = await AsyncStorage.getItem('favourites')
-                console.log(dummy)
-                Toast.show(
-                    'Added to favourites',
-                    Toast.SHORT
-                )
+                addToFavourites(uData.name)
+                favourites.push(uData)
+                message = 'Added to favourites'
+                isUpdated = true
             }
+            isUpdated ? (
+                AsyncStorage.setItem('favourites', JSON.stringify(favourites)).then(
+                    // Toast.show(
+                    //     message,
+                    //     Toast.SHORT
+                    // )
+                )) : null
         }
     }
 
-    generateAlias = (name) => {
-        const arr = name.split(' ')
+    generateAlias = () => {
+        const arr = universityData.name.split(' ')
         return `${arr[0].charAt(0)}${arr[1].charAt(0)}`
+    }
+
+    getColor = () => {
+        let color = ''
+        parentLayout == 'AllUniversities' ? color = '#ec667a' : color = 'rgb(182, 119, 3)'
+        return color
     }
 
     return (
@@ -60,24 +63,26 @@ export default function GridItem({ universityData, index, openWebsite, addToFavo
             <View style={styles.cardLayout}>
                 <View style={styles.multiLayout1}>
                     <View style={styles.aliasContainer}>
-                        <Text style={styles.aliasText}>{generateAlias(state.uniData.name)}</Text>
+                        <Text style={[{ color: getColor() }, styles.aliasText]}>{generateAlias()}</Text>
                     </View>
-                    <Text style={styles.nameText} numberOfLines={2} >{state.uniData.name}</Text>
+                    <Text style={styles.nameText} numberOfLines={2} >{universityData.name}</Text>
                 </View>
                 <View style={styles.multiLayout2}>
-                    <TouchableOpacity style={styles.goToWebsiteLayout} onPress={() => {
-                        openWebsite(state.uniData.web_pages[0])
+                    <TouchableOpacity onPress={() => {
+                        openWebsite(universityData.web_pages[0])
                     }}>
-                        <Text style={styles.goToWebsiteText}>Visit Website</Text>
+                        <Text style={[{ backgroundColor: getColor() }, styles.goToWebsiteText]}>Visit Website</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
-                        addToFavourites(state.uniData)
+                        handleFavourites(universityData, itemIndex)
                     }}>
-                        {isInFavourites(state.uniData) ? (
-                            <Entypo name="heart" size={20} color="#ec667a" />
+                        {parentLayout == 'Favourites' ? (
+                            <Entypo name="heart" size={20} color={getColor()} />
+                        ) : universityData.isInFavourite ? (
+                            <Entypo name="heart" size={20} color={getColor()} />
                         ) : (
-                                <Entypo name="heart-outlined" size={20} color="#ec667a" />
-                            )}
+                                    <Entypo name="heart-outlined" size={20} color={getColor()} />
+                                )}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -123,8 +128,7 @@ const styles = StyleSheet.create({
     },
     aliasText: {
         fontSize: 16,
-        fontWeight: 'bold',
-        color: '#ec667a'
+        fontWeight: 'bold'
     },
     nameText: {
         textAlign: 'center'
@@ -135,13 +139,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
-    goToWebsiteLayout: {
-
-    },
     goToWebsiteText: {
         fontSize: 11,
         color: '#fff',
-        backgroundColor: '#ec667a',
         borderRadius: 3,
         paddingLeft: 8,
         paddingRight: 8,

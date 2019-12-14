@@ -6,7 +6,8 @@ import {
 import GridItem from './GridItem'
 import WebsiteModal from './WebsiteModal'
 
-export default function MainLayout({ universitiesData, scrolledToBottom }) {
+export default function MainLayout({ parentLayout, universitiesData,
+    scrolledToBottom, addToFavourites, removeFromFavourites }) {
 
     const [state, setState] = useState({
         modalIsOpen: false,
@@ -54,7 +55,14 @@ export default function MainLayout({ universitiesData, scrolledToBottom }) {
                 scrollEventThrottle={400}>
                 <View style={styles.gridLayout}>
                     {universitiesData.map((universityData, index) => {
-                        return <GridItem universityData={universityData} index={index} key={index}
+                        return <GridItem parentLayout={parentLayout} universityData={universityData}
+                            itemIndex={index} key={index}
+                            addToFavourites={uName => {
+                                addToFavourites(uName)
+                            }}
+                            removeFromFavourites={uName => {
+                                removeFromFavourites(uName)
+                            }}
                             openWebsite={(website) => {
                                 if (website) {
                                     setState({

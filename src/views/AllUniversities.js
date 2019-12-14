@@ -44,12 +44,33 @@ export default function AllUniversities() {
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    let newData = []
-                    state.refreshData ? newData = data : newData = [...state.universitiesData, ...data]
-                    setState({
-                        ...state, isLoading: false, isLoading2: false, universitiesData: newData,
-                        index: (state.index + 10)
-                    })
+
+                    (async function () {
+                        AsyncStorage.getItem('favourites').then(result => {
+                            let newData = [], favourites = []
+                            if (result.length > 0) {
+                                favourites = JSON.parse(result)
+                            }
+
+                            const mData = data.map(dt => {
+                                const fav = favourites.find(favourite => favourite.name == dt.name)
+                                if (fav != 'undefined' && fav != null) {
+                                    dt.isInFavourite = true
+                                } else {
+                                    dt.isInFavourite = false
+                                }
+                                return dt
+                            })
+
+                            state.refreshData ? newData = mData : newData = [...state.universitiesData, ...mData]
+                            setState({
+                                ...state, isLoading: false, isLoading2: false, universitiesData: newData,
+                                index: (state.index + 10)
+                            })
+
+                        })
+                    })()
+
                 } else {
                     setState({
                         ...state, isLoading: false, isLoading2: false
@@ -79,13 +100,25 @@ export default function AllUniversities() {
         }
     }
 
-    (async function () {
-        AsyncStorage.getItem('favourites').then(favourites => {
-            if (!favourites) {
-                AsyncStorage.setItem('favourites', JSON.stringify([])).then()
+    handleAddToFavourites = async (uName) => {
+        const newUniversitiesData = state.universitiesData.map(ud => {
+            if (ud.name == uName) {
+                ud.isInFavourite = true
             }
+            return ud
         })
-    })()
+        await setState({ ...state, universitiesData: newUniversitiesData })
+    }
+
+    handleRemoveFromFavourites = async (uName) => {
+        const newUniversitiesData = state.universitiesData.map(ud => {
+            if (ud.name == uName) {
+                ud.isInFavourite = false
+            }
+            return ud
+        })
+        await setState({ ...state, universitiesData: newUniversitiesData })
+    }
 
     contentLayout = () => {
         if (!checkNetwork) {
@@ -108,7 +141,14 @@ export default function AllUniversities() {
                     </View>
                 ) : (
                             <View style={styles.contentLayout}>
-                                <MainLayout universitiesData={state.universitiesData}
+                                <MainLayout parentLayout='AllUniversities'
+                                    universitiesData={state.universitiesData}
+                                    addToFavourites={uName => {
+                                        handleAddToFavourites(uName)
+                                    }}
+                                    removeFromFavourites={(uName) => {
+                                        handleRemoveFromFavourites(uName)
+                                    }}
                                     scrolledToBottom={() => {
                                         handleScrollToBottom()
                                     }} />

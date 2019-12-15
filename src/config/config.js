@@ -1,1 +1,1 @@
-export const url = 'http://192.168.43.92:4040'
+export const url = 'https://world-universities-api.herokuapp.com'

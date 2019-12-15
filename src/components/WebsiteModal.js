@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     container2: {
-        width: '90%',
+        width: '95%',
         height: '90%',
         backgroundColor: 'rgba(0,0,0, 0.5)',
         borderRadius: 3,

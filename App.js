@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, YellowBox, View } from 'react-native';
 import FallingDrawer from 'react-native-falling-drawer';
 import AllUniversities from './src/views/AllUniversities';
 import About from './src/views/About';
@@ -8,6 +8,13 @@ import Favourites from './src/views/Favourites';
 
 
 export default function App() {
+
+  (function () {
+    console.disableYellowBox = true
+    YellowBox.ignoreWarnings([
+      'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+    ])
+  })()
 
   const SCREENS = [
     {

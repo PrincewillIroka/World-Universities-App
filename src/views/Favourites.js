@@ -26,9 +26,9 @@ export default function Favourites() {
         }
     }
 
-    handleRemoveFromFavourites = async (uName) => {
+    handleRemoveFromFavourites = (uName) => {
         const newUniversitiesData = state.universitiesData.filter(ud => ud.name != uName)
-        await setState({ ...state, universitiesData: newUniversitiesData })
+        setState({ ...state, universitiesData: newUniversitiesData })
     }
 
     return (
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     spinnerLayout: {
         flexDirection: 'row',
-        height: '80%',
+        height: '100%',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center'

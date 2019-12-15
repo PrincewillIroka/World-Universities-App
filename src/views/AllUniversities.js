@@ -16,15 +16,32 @@ export default function AllUniversities() {
         searchText: '',
         criterion: 'getUniversitiesByCountry',
         name: '',
-        country: 'Nigeria',
+        country: 'United States',
         index: 0,
         number: 10,
         refreshData: false
     })
 
     useEffect(() => {
-        fetchUniversitiesData()
+        getUserCountry()
     }, [])
+
+    getUserCountry = () => {
+        fetch(`http://api.ipstack.com/197.210.64.28?access_key=`)
+            .then((response) => response.json())
+            .then(async (responseJson) => {
+                const { country_name } = responseJson
+                if (country_name) {
+                    await setState({
+                        ...state, country: country_name,
+                    })
+                }
+                fetchUniversitiesData()
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 
     fetchUniversitiesData = async () => {
         const newUrl = url + '/' + state.criterion
@@ -72,8 +89,12 @@ export default function AllUniversities() {
                     })()
 
                 } else {
+                    if (state.index >= 10) {
+                        data = state.universitiesData
+                    }
                     setState({
-                        ...state, isLoading: false, isLoading2: false
+                        ...state, isLoading: false, isLoading2: false,
+                        universitiesData: data
                     })
                 }
             })
@@ -84,6 +105,8 @@ export default function AllUniversities() {
         let isConnected = false
         NetInfo.fetch().then(state => {
             isConnected = state.isConnected
+            if (isConnected) {
+            }
         })
         return isConnected
     }
@@ -107,7 +130,7 @@ export default function AllUniversities() {
             }
             return ud
         })
-        await setState({ ...state, universitiesData: newUniversitiesData })
+        setState({ ...state, universitiesData: newUniversitiesData })
     }
 
     handleRemoveFromFavourites = async (uName) => {
@@ -117,7 +140,7 @@ export default function AllUniversities() {
             }
             return ud
         })
-        await setState({ ...state, universitiesData: newUniversitiesData })
+        setState({ ...state, universitiesData: newUniversitiesData })
     }
 
     contentLayout = () => {

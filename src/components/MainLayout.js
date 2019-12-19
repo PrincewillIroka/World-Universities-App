@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-    StyleSheet, View, Text, FlatList, TouchableOpacity,
-    SafeAreaView, ScrollView, Modal
+    StyleSheet, View, SafeAreaView, ScrollView, Modal
 } from 'react-native'
 import GridItem from './GridItem'
 import WebsiteModal from './WebsiteModal'

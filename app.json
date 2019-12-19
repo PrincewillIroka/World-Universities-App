@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "WorlUniversities",
+    "name": "WorldUniversities",
     "slug": "WorldUniversities",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -24,7 +24,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.princewilliroka.worlduniversitiesapp"
+    },
+    "android": {
+      "package": "com.princewilliroka.worlduniversitiesapp"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#1a1a1a"
     }
   }
 }

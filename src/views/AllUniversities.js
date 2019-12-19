@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { ActivityIndicator, StyleSheet, View, Text, AsyncStorage } from 'react-native'
+import { connect } from "react-redux";
 import NetInfo from '@react-native-community/netinfo'
 import SearchLayout from '../components/SearchLayout'
 import MainLayout from '../components/MainLayout'
 import { url } from '../config/config'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+
 
 export default function AllUniversities() {
 
@@ -27,7 +29,7 @@ export default function AllUniversities() {
     }, [])
 
     getUserCountry = () => {
-        fetch(`http://api.ipstack.com/197.210.64.28?access_key=`)
+        fetch(`http://api.ipstack.com/197.210.64.28?access_key=b545d1c2218d973a3dfdaaedb41eabe3`)
             .then((response) => response.json())
             .then(async (responseJson) => {
                 const { country_name } = responseJson
@@ -43,7 +45,7 @@ export default function AllUniversities() {
             });
     }
 
-    fetchUniversitiesData = async () => {
+    fetchUniversitiesData = () => {
         const newUrl = url + '/' + state.criterion
         const data = {
             name: state.name,
@@ -51,7 +53,7 @@ export default function AllUniversities() {
             index: state.index,
             number: state.number
         }
-        await fetch(newUrl, {
+        fetch(newUrl, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -60,32 +62,42 @@ export default function AllUniversities() {
         })
             .then(response => response.json())
             .then(data => {
+
                 if (data.length > 0) {
 
-                    (async function () {
-                        AsyncStorage.getItem('favourites').then(result => {
-                            let newData = [], favourites = []
-                            if (result.length > 0) {
-                                favourites = JSON.parse(result)
+                    (function () {
+                        AsyncStorage.getItem('favourites').then(async result => {
+                            let newData = [], favourites = [], mData = []
+                            if (result) {
+                                if (result.length > 0) {
+                                    favourites = JSON.parse(result)
+                                }
                             }
 
-                            const mData = data.map(dt => {
-                                const fav = favourites.find(favourite => favourite.name == dt.name)
-                                if (fav != 'undefined' && fav != null) {
-                                    dt.isInFavourite = true
-                                } else {
-                                    dt.isInFavourite = false
-                                }
-                                return dt
-                            })
+
+                            if (favourites.length > 0) {
+                                mData = data.map(dt => {
+                                    const fav = favourites.find(favourite => favourite.name == dt.name)
+                                    if (fav != 'undefined' && fav != null) {
+                                        dt.isInFavourite = true
+                                    } else {
+                                        dt.isInFavourite = false
+                                    }
+                                    return dt
+                                })
+                            } else {
+                                mData = data
+                            }
 
                             state.refreshData ? newData = mData : newData = [...state.universitiesData, ...mData]
-                            setState({
+                            await setState({
                                 ...state, isLoading: false, isLoading2: false, universitiesData: newData,
                                 index: (state.index + 10)
                             })
 
+
                         })
+
                     })()
 
                 } else {
@@ -153,33 +165,32 @@ export default function AllUniversities() {
             )
         } else {
             return (
-                state.isLoading ? (
-                    <View style={styles.spinnerLayout}>
-                        <ActivityIndicator size="large" color="#ec667a" />
-                    </View>
-                ) : state.universitiesData.length <= 0 ? (
+                !state.isLoading && state.universitiesData.length <= 0 ? (
                     <View style={styles.emptyLayout}>
                         <FontAwesome name="graduation-cap" size={60} color="gray" />
                         <Text style={styles.emptyText}>None Found</Text>
                     </View>
+                ) : !state.isLoading ? (
+                    <View style={styles.contentLayout}>
+                        <MainLayout parentLayout='AllUniversities'
+                            universitiesData={state.universitiesData}
+                            addToFavourites={uName => {
+                                handleAddToFavourites(uName)
+                            }}
+                            removeFromFavourites={(uName) => {
+                                handleRemoveFromFavourites(uName)
+                            }}
+                            scrolledToBottom={() => {
+                                handleScrollToBottom()
+                            }} />
+                        {state.isLoading2 && <View style={styles.bottomLoader}>
+                            <ActivityIndicator size="small" color="#ec667a" />
+                        </View>}
+                    </View>
                 ) : (
-                            <View style={styles.contentLayout}>
-                                <MainLayout parentLayout='AllUniversities'
-                                    universitiesData={state.universitiesData}
-                                    addToFavourites={uName => {
-                                        handleAddToFavourites(uName)
-                                    }}
-                                    removeFromFavourites={(uName) => {
-                                        handleRemoveFromFavourites(uName)
-                                    }}
-                                    scrolledToBottom={() => {
-                                        handleScrollToBottom()
-                                    }} />
-                                {state.isLoading2 && <View style={styles.bottomLoader}>
-                                    <ActivityIndicator size="small" color="#ec667a" />
-                                </View>}
-                            </View>
-                        )
+                            <View style={styles.spinnerLayout}>
+                                <ActivityIndicator size="large" color="#ec667a" />
+                            </View>)
             )
         }
     }
@@ -201,6 +212,38 @@ export default function AllUniversities() {
         </View>
     )
 }
+
+// mapStateToProps = state => {
+//     return {
+//         isLoading: state.allUniversitiesReducer.isLoading,
+//         isLoading2: state.allUniversitiesReducer.isLoading2,
+//         universitiesData: state.allUniversitiesReducer.universitiesData,
+//         searchText: state.allUniversitiesReducer.searchText,
+//         criterion: state.allUniversitiesReducer.criterion,
+//         name: state.allUniversitiesReducer.name,
+//         country: state.allUniversitiesReducer.country,
+//         index: state.allUniversitiesReducer.index,
+//         number: state.allUniversitiesReducer.number,
+//         refreshData: state.allUniversitiesReducer.refreshData
+//     }
+// }
+
+// mapDispatchToProps = dispatch => {
+//     return {
+//         changeCountryName: (country) => {
+//             dispatch(changeCountryName(country))
+//         },
+//         populateItemsInBar: value => {
+//             dispatch(populateItemsInBar(value))
+//             dispatch(populateMoreItemsInBar(value))
+//         }
+//     }
+// }
+
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(AllUniversities)
 
 const styles = StyleSheet.create({
     container: {

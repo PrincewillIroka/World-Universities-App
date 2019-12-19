@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import MainLayout from '../components/MainLayout'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function Favourites() {
 
@@ -17,13 +16,18 @@ export default function Favourites() {
         fetchUniversitiesData()
     }, [])
 
-    fetchUniversitiesData = async () => {
-        let newFavourites = await AsyncStorage.getItem('favourites')
-        if (newFavourites) {
+    fetchUniversitiesData = () => {
+        AsyncStorage.getItem('favourites').then(async result => {
+            let nData = []
+            if (result) {
+                if (result.length > 0) {
+                    nData = JSON.parse(result)
+                }
+            }
             await setState({
-                ...state, isLoading: false, universitiesData: JSON.parse(newFavourites)
+                ...state, isLoading: false, universitiesData: nData
             })
-        }
+        })
     }
 
     handleRemoveFromFavourites = (uName) => {
@@ -35,7 +39,7 @@ export default function Favourites() {
         <View style={styles.container}>
             {state.isLoading ? (
                 <View style={styles.spinnerLayout}>
-                    <ActivityIndicator size="large" color="#ec667a" />
+                    <ActivityIndicator size="large" color="rgb(182, 119, 3)" />
                 </View>
             ) : state.universitiesData.length <= 0 ? (
                 <View style={styles.emptyLayout}>

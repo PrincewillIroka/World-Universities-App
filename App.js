@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, YellowBox, View } from 'react-native';
+import { Platform, StyleSheet, YellowBox, View, AsyncStorage, StatusBar } from 'react-native';
 import FallingDrawer from 'react-native-falling-drawer';
 import AllUniversities from './src/views/AllUniversities';
 import About from './src/views/About';
@@ -9,12 +9,17 @@ import Favourites from './src/views/Favourites';
 
 export default function App() {
 
-  (function () {
+  (async function () {
     console.disableYellowBox = true
     YellowBox.ignoreWarnings([
       'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
     ])
+    let favourites = await AsyncStorage.getItem('favourites')
+    if (!favourites) {
+      AsyncStorage.setItem('favourites', JSON.stringify([]))
+    }
   })()
+
 
   const SCREENS = [
     {
@@ -61,5 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginTop: Platform.OS === 'ios' ? 60 : 50,
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
 });

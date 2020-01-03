@@ -6,5 +6,5 @@ Information is gotten from this API (https://world-universities-api.herokuapp.co
 
 ## App User Interface
 
-![Home Screen](https://i.imgur.com/B80pz70.png)
-![Nav Menu](https://imgur.com/2ldPi5l.png)
+![Home Screen](https://i.imgur.com/GIY7nGw.png)
+![Nav Menu](https://i.imgur.com/YMGyut2.png)

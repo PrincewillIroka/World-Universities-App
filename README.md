@@ -1,5 +1,5 @@
 ## World Universities App
-A React Native app that provides users with information of thousands of top Universities around the World.  \
+A React Native app that provides users with information of thousands of top Universities around the World.
 
 #### Features
 - Users can search for institutions by their names or by the countries in which they are.

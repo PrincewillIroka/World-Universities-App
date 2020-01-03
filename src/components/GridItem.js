@@ -47,9 +47,20 @@ export default function GridItem({ parentLayout, universityData, itemIndex,
         }
     }
 
+    hasWhiteSpace = (s) => {
+        return s.indexOf(' ') >= 0;
+    }
+
     generateAlias = () => {
-        const arr = universityData.name.split(' ')
-        return `${arr[0].charAt(0)}${arr[1].charAt(0)}`
+        let value = '';
+        if(hasWhiteSpace(universityData.name)){
+            const arr = universityData.name.split(' ')
+            value =  `${arr[0].charAt(0)}${arr[1].charAt(0)}`
+        }else{
+            value = universityData.name.substring(0, 2).toUpperCase()
+        }
+        
+        return value
     }
 
     getColor = () => {

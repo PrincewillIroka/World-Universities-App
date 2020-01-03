@@ -124,7 +124,7 @@ export default function AllUniversities() {
     }
 
     handleSearch = async () => {
-        if (checkNetwork)
+        // if (checkNetwork)
             fetchUniversitiesData()
     }
 
@@ -156,14 +156,14 @@ export default function AllUniversities() {
     }
 
     contentLayout = () => {
-        if (!checkNetwork) {
-            return (
-                <View style={styles.emptyLayout}>
-                    <MaterialIcons name="network-check" size={60} color="gray" />
-                    <Text style={styles.emptyText}>Please check your network connection.</Text>
-                </View>
-            )
-        } else {
+        // if (!checkNetwork) {
+        //     return (
+        //         <View style={styles.emptyLayout}>
+        //             <MaterialIcons name="network-check" size={60} color="gray" />
+        //             <Text style={styles.emptyText}>Please check your network connection.</Text>
+        //         </View>
+        //     )
+        // } else {
             return (
                 !state.isLoading && state.universitiesData.length <= 0 ? (
                     <View style={styles.emptyLayout}>
@@ -192,7 +192,7 @@ export default function AllUniversities() {
                                 <ActivityIndicator size="large" color="#ec667a" />
                             </View>)
             )
-        }
+        // }
     }
 
     return (
@@ -212,38 +212,6 @@ export default function AllUniversities() {
         </View>
     )
 }
-
-// mapStateToProps = state => {
-//     return {
-//         isLoading: state.allUniversitiesReducer.isLoading,
-//         isLoading2: state.allUniversitiesReducer.isLoading2,
-//         universitiesData: state.allUniversitiesReducer.universitiesData,
-//         searchText: state.allUniversitiesReducer.searchText,
-//         criterion: state.allUniversitiesReducer.criterion,
-//         name: state.allUniversitiesReducer.name,
-//         country: state.allUniversitiesReducer.country,
-//         index: state.allUniversitiesReducer.index,
-//         number: state.allUniversitiesReducer.number,
-//         refreshData: state.allUniversitiesReducer.refreshData
-//     }
-// }
-
-// mapDispatchToProps = dispatch => {
-//     return {
-//         changeCountryName: (country) => {
-//             dispatch(changeCountryName(country))
-//         },
-//         populateItemsInBar: value => {
-//             dispatch(populateItemsInBar(value))
-//             dispatch(populateMoreItemsInBar(value))
-//         }
-//     }
-// }
-
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(AllUniversities)
 
 const styles = StyleSheet.create({
     container: {

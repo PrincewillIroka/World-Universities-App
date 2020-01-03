@@ -2,7 +2,6 @@
 A React Native app that provides users with information of thousands of top Universities around the World.  \
 From the app, users can search for institutions by their names or by the countries in which they are.  \
 Users can also visit the official websites of these institutions and add/remove institutions as favourites.  \
-Information is gotten from this API (https://world-universities-api.herokuapp.com/)
 
 ### Download from Google Play Store
 https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversitiesapp
@@ -14,6 +13,9 @@ https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversit
 
 ![Favourites](https://i.imgur.com/MowZEqZ.png)
 ![App Developer](https://i.imgur.com/FiTo7ih.png)
+
+### API
+Information is gotten from this API https://world-universities-api.herokuapp.com/
 
 ### License
 Copyright 2020 **Princewill Iroka**

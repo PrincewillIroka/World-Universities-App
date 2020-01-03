@@ -8,3 +8,6 @@ Information is gotten from this API (https://world-universities-api.herokuapp.co
 
 ![Home Screen](https://i.imgur.com/GIY7nGw.png)
 ![Nav Menu](https://i.imgur.com/YMGyut2.png)
+
+![Favourites](https://i.imgur.com/MowZEqZ.png)
+![App Developer](https://i.imgur.com/FiTo7ih.png)

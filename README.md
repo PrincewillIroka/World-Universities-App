@@ -4,6 +4,9 @@ From the app, users can search for institutions by their names or by the countri
 Users can also visit the official websites of these institutions and add/remove institutions as favourites.  \
 Information is gotten from this API (https://world-universities-api.herokuapp.com/)
 
+## Download from Google Play Store
+https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversitiesapp
+
 ## App User Interface
 
 ![Home Screen](https://i.imgur.com/GIY7nGw.png)

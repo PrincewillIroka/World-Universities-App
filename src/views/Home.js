@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { ActivityIndicator, StyleSheet, View, Text, AsyncStorage } from 'react-native'
-import { connect } from "react-redux";
 import NetInfo from '@react-native-community/netinfo'
 import SearchLayout from '../components/SearchLayout'
 import MainLayout from '../components/MainLayout'
 import { url } from '../config/config'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { ACCESS_KEY } from 'react-native-dotenv'
 
 
-export default function AllUniversities() {
+export default function Home() {
 
     const [state, setState] = useState({
         isLoading: true,
@@ -29,7 +28,7 @@ export default function AllUniversities() {
     }, [])
 
     getUserCountry = () => {
-        fetch(`http://api.ipstack.com/197.210.64.28?access_key=b545d1c2218d973a3dfdaaedb41eabe3`)
+        fetch(`http://api.ipstack.com/197.210.64.28?access_key=${ACCESS_KEY}`)
             .then((response) => response.json())
             .then(async (responseJson) => {
                 const { country_name } = responseJson
@@ -172,7 +171,7 @@ export default function AllUniversities() {
                     </View>
                 ) : !state.isLoading ? (
                     <View style={styles.contentLayout}>
-                        <MainLayout parentLayout='AllUniversities'
+                        <MainLayout parentLayout='Home'
                             universitiesData={state.universitiesData}
                             addToFavourites={uName => {
                                 handleAddToFavourites(uName)

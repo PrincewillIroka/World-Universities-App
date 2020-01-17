@@ -3,7 +3,6 @@ import {
     StyleSheet, View, Text, TouchableOpacity,
     AsyncStorage
 } from 'react-native'
-import Toast from 'react-native-simple-toast'
 import Entypo from 'react-native-vector-icons/Entypo'
 
 export default function GridItem({ parentLayout, universityData, itemIndex,
@@ -65,7 +64,7 @@ export default function GridItem({ parentLayout, universityData, itemIndex,
 
     getColor = () => {
         let color = ''
-        parentLayout == 'AllUniversities' ? color = '#ec667a' : color = 'rgb(182, 119, 3)'
+        parentLayout == 'Home' ? color = '#ec667a' : color = 'rgb(182, 119, 3)'
         return color
     }
 

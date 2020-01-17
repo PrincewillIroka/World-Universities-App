@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet, YellowBox, View, AsyncStorage, StatusBar } from 'react-native';
 import FallingDrawer from 'react-native-falling-drawer';
-import AllUniversities from './src/views/AllUniversities';
+import Home from './src/views/Home';
 import About from './src/views/About';
 import AppDeveloper from './src/views/AppDeveloper';
 import Favourites from './src/views/Favourites';
@@ -23,12 +23,12 @@ export default function App() {
 
   const SCREENS = [
     {
-      key: "all_universities",
-      name: "All Universities",
+      key: "home",
+      name: "Universities",
       color: "#ec667a",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><AllUniversities /></View>
+      render: () => <View style={styles.container}><Home /></View>
     },
     {
       key: "about_app",

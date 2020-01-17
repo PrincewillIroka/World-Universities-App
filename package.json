@@ -19,6 +19,7 @@
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-check-box": "^2.1.7",
+    "react-native-dotenv": "^0.2.0",
     "react-native-falling-drawer": "^1.0.2",
     "react-native-loader": "^1.2.1",
     "react-native-simple-toast": "^1.0.0",

@@ -21,12 +21,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         display: 'flex',
-        flexDirection: 'column',
-        paddingTop: '20%'
+        flexDirection: 'column'
     },
     logoImage: {
-        height: 100,
-        width: '55%'
+        height: 170,
+        width: '55%',
+        marginTop: '20%'
     },
     aboutText: {
         marginTop: '20%',
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5
+        elevation: 5,
+        fontWeight: 'bold'
     }
 });
 

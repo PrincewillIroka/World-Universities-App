@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: Platform.OS === 'ios' ? 60 : 50,
-    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+    marginTop: 50,
   },
 });

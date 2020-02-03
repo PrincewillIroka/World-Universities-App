@@ -178,7 +178,7 @@ export default function Home() {
 
   contentLayout = () => {
     return !state.isLoading && !state.isNetworkAvailable ? (
-      <TouchableOpacity onPress={async ()=>{
+      <TouchableOpacity style={{flex: 1}} onPress={async ()=>{
         await setState({isLoading: true})
         checkNetwork("reconnect");
       }}>

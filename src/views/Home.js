@@ -4,7 +4,8 @@ import {
   StyleSheet,
   View,
   Text,
-  AsyncStorage
+  AsyncStorage,
+  TouchableOpacity
 } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import SearchLayout from "../components/SearchLayout";
@@ -37,12 +38,17 @@ export default function Home() {
     const network = await NetInfo.fetch();
     const isConnected = network.isConnected;
     if (isConnected) {
-      if (value === "initialRequest") {
+      if (value === "initialRequest" || value === "reconnect") {
         getUserCountry();
       } else if (value === "search") {
         fetchUniversitiesData();
+      } else if (value === "loadMore") {
+        if (state.index >= 10) {
+          await setState({ ...state, isLoading2: true, refreshData: false });
+          fetchUniversitiesData();
+        }
       }
-    } else {
+    } else if (!isConnected && value !== "loadMore") {
       setState({ ...state, isLoading: false, isNetworkAvailable: isConnected });
     }
   };
@@ -62,7 +68,7 @@ export default function Home() {
         .then(async responseJson => {
           const { country_name } = responseJson;
           if (country_name) {
-            await AsyncStorage.setItem('country', JSON.stringify(country_name))
+            await AsyncStorage.setItem("country", JSON.stringify(country_name));
             await setState({
               ...state,
               country: country_name,
@@ -150,17 +156,6 @@ export default function Home() {
       });
   };
 
-  handleSearch = () => {
-    checkNetwork("search");
-  };
-
-  handleScrollToBottom = async () => {
-    if (state.index >= 10) {
-      await setState({ ...state, isLoading2: true, refreshData: false });
-      fetchUniversitiesData();
-    }
-  };
-
   handleAddToFavourites = uName => {
     const newUniversitiesData = state.universitiesData.map(ud => {
       if (ud.name == uName) {
@@ -183,12 +178,17 @@ export default function Home() {
 
   contentLayout = () => {
     return !state.isLoading && !state.isNetworkAvailable ? (
-      <View style={styles.emptyLayout}>
-        <MaterialIcons name="network-check" size={60} color="gray" />
-        <Text style={styles.emptyText}>
-          Please check your network connection.
-        </Text>
-      </View>
+      <TouchableOpacity onPress={async ()=>{
+        await setState({isLoading: true})
+        checkNetwork("reconnect");
+      }}>
+        <View style={styles.emptyLayout}>
+          <MaterialIcons name="network-check" size={60} color="gray" />
+          <Text style={styles.emptyText}>
+            Please check your network connection.
+          </Text>
+        </View>
+      </TouchableOpacity>
     ) : !state.isLoading && state.universitiesData.length <= 0 ? (
       <View style={styles.emptyLayout}>
         <FontAwesome name="graduation-cap" size={60} color="gray" />
@@ -206,7 +206,7 @@ export default function Home() {
             handleRemoveFromFavourites(uName);
           }}
           scrolledToBottom={() => {
-            handleScrollToBottom();
+            checkNetwork("loadMore");
           }}
         />
         {state.isLoading2 && (
@@ -239,7 +239,7 @@ export default function Home() {
             refreshData: true,
             index: 0
           });
-          handleSearch();
+          checkNetwork("search");
         }}
         setSearchCriterion={async criterion => {
           await setState({ ...state, criterion: criterion });

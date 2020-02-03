@@ -91,6 +91,7 @@ export default function Home() {
       index: state.index,
       number: state.number
     };
+
     fetch(newUrl, {
       method: "POST",
       body: JSON.stringify(data),
@@ -178,10 +179,13 @@ export default function Home() {
 
   contentLayout = () => {
     return !state.isLoading && !state.isNetworkAvailable ? (
-      <TouchableOpacity style={{flex: 1}} onPress={async ()=>{
-        await setState({isLoading: true})
-        checkNetwork("reconnect");
-      }}>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        onPress={async () => {
+          await setState({ ...state, isLoading: true });
+          checkNetwork("reconnect");
+        }}
+      >
         <View style={styles.emptyLayout}>
           <MaterialIcons name="network-check" size={60} color="gray" />
           <Text style={styles.emptyText}>

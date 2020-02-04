@@ -14,7 +14,7 @@ export default function MainLayout({ parentLayout, universitiesData,
     })
 
     isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-        const paddingToBottom = 0;
+        const paddingToBottom = 20;
         return layoutMeasurement.height + contentOffset.y >=
             contentSize.height - paddingToBottom;
     };

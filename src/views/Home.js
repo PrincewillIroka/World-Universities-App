@@ -38,9 +38,9 @@ export default function Home() {
     const network = await NetInfo.fetch();
     const isConnected = network.isConnected;
     if (isConnected) {
-      if (value === "initialRequest" || value === "reconnect") {
+      if (value === "initialRequest") {
         getUserCountry();
-      } else if (value === "search") {
+      } else if (value === "search" || value === "reconnect") {
         fetchUniversitiesData();
       } else if (value === "loadMore") {
         if (state.index >= 10) {

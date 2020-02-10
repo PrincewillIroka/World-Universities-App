@@ -10,9 +10,8 @@ import {
 import NetInfo from "@react-native-community/netinfo";
 import SearchLayout from "../components/SearchLayout";
 import MainLayout from "../components/MainLayout";
-import { url } from "../config/config";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { ACCESS_KEY } from "react-native-dotenv";
+import { ACCESS_KEY, API } from "react-native-dotenv";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export default function Home() {
@@ -37,6 +36,7 @@ export default function Home() {
   checkNetwork = async value => {
     const network = await NetInfo.fetch();
     const isConnected = network.isConnected;
+
     if (isConnected) {
       if (value === "initialRequest") {
         getUserCountry();
@@ -84,7 +84,7 @@ export default function Home() {
   };
 
   fetchUniversitiesData = () => {
-    const newUrl = url + "/" + state.criterion;
+    const newUrl = API + "/" + state.criterion;
     const data = {
       name: state.name,
       country: state.country,
@@ -210,7 +210,9 @@ export default function Home() {
             handleRemoveFromFavourites(uName);
           }}
           scrolledToBottom={() => {
-            checkNetwork("loadMore");
+            if (!state.isLoading2) {
+              checkNetwork("loadMore");
+            }
           }}
         />
         {state.isLoading2 && (

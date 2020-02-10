@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet, YellowBox, View, AsyncStorage, StatusBar } from 'react-native';
 import FallingDrawer from 'react-native-falling-drawer';
 import Home from './src/views/Home';
-import About from './src/views/About';
+import Suggestions from './src/views/Suggestions';
 import AppDeveloper from './src/views/AppDeveloper';
 import Favourites from './src/views/Favourites';
 
@@ -31,17 +31,17 @@ export default function App() {
       render: () => <View style={styles.container}><Home /></View>
     },
     {
-      key: "about_app",
-      name: "About App",
-      color: "#695777",
+      key: "suggestions",
+      name: "Suggestions",
+      color: "#355878",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><About /></View>
+      render: () => <View style={styles.container}><Suggestions /></View>
     },
     {
       key: "app_developer",
       name: "App Developer",
-      color: "#355878",
+      color: "#ec667a",
       titleColor: "#fff",
       hamburgerColor: "#fff",
       render: () => <View style={styles.container}><AppDeveloper /></View>
@@ -49,7 +49,7 @@ export default function App() {
     {
       key: "fav_universities",
       name: "Favourites",
-      color: "rgb(182, 119, 3)",
+      color: "#355878",
       titleColor: "#fff",
       hamburgerColor: "#fff",
       render: () => <View style={styles.container}><Favourites /></View>

@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         borderRadius: 3
     },
     singleRowText: {
-        color: '#3366ff'
+        color: '#1f6d9e'
     },
     actionColumn: {
         display: 'flex',

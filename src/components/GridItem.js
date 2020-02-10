@@ -64,7 +64,7 @@ export default function GridItem({ parentLayout, universityData, itemIndex,
 
     getColor = () => {
         let color = ''
-        parentLayout == 'Home' ? color = '#ec667a' : color = 'rgb(182, 119, 3)'
+        parentLayout == 'Home' ? color = '#ec667a' : color = '#355878'
         return color
     }
 

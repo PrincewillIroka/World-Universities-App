@@ -39,7 +39,7 @@ export default function Favourites() {
         <View style={styles.container}>
             {state.isLoading ? (
                 <View style={styles.spinnerLayout}>
-                    <ActivityIndicator size="large" color="rgb(182, 119, 3)" />
+                    <ActivityIndicator size="large" color="#355878" />
                 </View>
             ) : state.universitiesData.length <= 0 ? (
                 <View style={styles.emptyLayout}>

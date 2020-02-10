@@ -1,9 +1,9 @@
 import React from 'react';
-import { Platform, StyleSheet, YellowBox, View, AsyncStorage, StatusBar } from 'react-native';
+import { StyleSheet, YellowBox, View, AsyncStorage } from 'react-native';
 import FallingDrawer from 'react-native-falling-drawer';
 import Home from './src/views/Home';
 import Suggestions from './src/views/Suggestions';
-import AppDeveloper from './src/views/AppDeveloper';
+import About from './src/views/About';
 import Favourites from './src/views/Favourites';
 
 
@@ -48,11 +48,11 @@ export default function App() {
     },
     {
       key: "app_developer",
-      name: "App Developer",
+      name: "About",
       color: "#355878",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><AppDeveloper /></View>
+      render: () => <View style={styles.container}><About /></View>
     }
   ]
 

@@ -36,6 +36,7 @@ export default function Home() {
   checkNetwork = async value => {
     const network = await NetInfo.fetch();
     const isConnected = network.isConnected;
+    console.log('Inside checkNetwork')
 
     if (isConnected) {
       if (value === "initialRequest") {

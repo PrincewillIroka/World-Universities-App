@@ -39,20 +39,20 @@ export default function App() {
       render: () => <View style={styles.container}><Suggestions /></View>
     },
     {
-      key: "app_developer",
-      name: "App Developer",
+      key: "fav_universities",
+      name: "Favourites",
       color: "#ec667a",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><AppDeveloper /></View>
+      render: () => <View style={styles.container}><Favourites /></View>
     },
     {
-      key: "fav_universities",
-      name: "Favourites",
+      key: "app_developer",
+      name: "App Developer",
       color: "#355878",
       titleColor: "#fff",
       hamburgerColor: "#fff",
-      render: () => <View style={styles.container}><Favourites /></View>
+      render: () => <View style={styles.container}><AppDeveloper /></View>
     }
   ]
 

@@ -62,18 +62,12 @@ export default function GridItem({ parentLayout, universityData, itemIndex,
         return value
     }
 
-    getColor = () => {
-        let color = ''
-        parentLayout == 'Home' ? color = '#ec667a' : color = '#355878'
-        return color
-    }
-
     return (
         <View style={styles.cardContainer}>
             <View style={styles.cardLayout}>
                 <View style={styles.multiLayout1}>
                     <View style={styles.aliasContainer}>
-                        <Text style={[{ color: getColor() }, styles.aliasText]}>{generateAlias()}</Text>
+                        <Text style={[{ color: '#ec667a' }, styles.aliasText]}>{generateAlias()}</Text>
                     </View>
                     <Text style={styles.nameText} numberOfLines={2} >{universityData.name}</Text>
                 </View>
@@ -81,17 +75,17 @@ export default function GridItem({ parentLayout, universityData, itemIndex,
                     <TouchableOpacity onPress={() => {
                         openWebsite(universityData.web_pages[0])
                     }}>
-                        <Text style={[{ backgroundColor: getColor() }, styles.goToWebsiteText]}>Visit Website</Text>
+                        <Text style={[{ backgroundColor: '#ec667a' }, styles.goToWebsiteText]}>Visit Website</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         handleFavourites(universityData, itemIndex)
                     }}>
                         {parentLayout == 'Favourites' ? (
-                            <Entypo name="heart" size={20} color={getColor()} />
+                            <Entypo name="heart" size={20} color={'#ec667a'} />
                         ) : universityData.isInFavourite ? (
-                            <Entypo name="heart" size={20} color={getColor()} />
+                            <Entypo name="heart" size={20} color={'#ec667a'} />
                         ) : (
-                                    <Entypo name="heart-outlined" size={20} color={getColor()} />
+                                    <Entypo name="heart-outlined" size={20} color={'#ec667a'} />
                                 )}
                     </TouchableOpacity>
                 </View>

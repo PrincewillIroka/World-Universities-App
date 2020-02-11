@@ -6,12 +6,27 @@ export default function About() {
   return (
     <View style={styles.container}>
       <Image source={Logo} style={styles.logoImage} />
-      <Text style={styles.aboutText}>
-        This app provides users with information about thousands of universities
-        around the world. From the app, users can access the official
-        websites of these institutions. Users can also make suggestions for universities 
-        to be added to the app (Note: We'll properly review every suggestion before adding it).
-      </Text>
+      <View style={styles.info}>
+        <Text style={{ fontWeight: "bold", marginBottom: 5 }}>Disclaimer:</Text>
+        <Text>
+          This app is intended for informational purposes only, you could still make
+          a proper search online for any information you find here.
+        </Text>
+        <Text style={{ fontWeight: "bold", marginBottom: 5, marginTop: 15 }}>Features:</Text>
+        <Text style={styles.ftText}>
+          (1) Provide users with information about thousands of universities
+          around the world.
+        </Text>
+        <Text style={styles.ftText}>
+          (2) Users can access the official websites of these institutions.
+        </Text>
+        <Text style={styles.ftText}>(3) Users can add univerities as favourites. </Text>
+        <Text style={styles.ftText}>
+          (4) Users can also make suggestions for universities to be added to
+          the app (Note: We'll properly review every suggestion before adding
+          it).
+        </Text>
+      </View>
     </View>
   );
 }
@@ -28,13 +43,11 @@ const styles = StyleSheet.create({
     width: "55%",
     marginTop: "10%"
   },
-  aboutText: {
-    marginTop: "10%",
-    textAlign: "center",
-    width: "90%",
-    fontSize: 15,
-    lineHeight: 25,
+  info: {
+    display: "flex",
+    flexDirection: "column",
     backgroundColor: "#fff",
+    width: "90%",
     padding: 10,
     borderRadius: 5,
     color: "#666",
@@ -46,6 +59,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    fontWeight: "bold"
+    marginTop: 20,
+  },
+  ftText:{
+      marginBottom: 3
   }
 });

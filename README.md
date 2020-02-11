@@ -22,6 +22,12 @@ https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversit
 ### API
 Information is gotten from this API https://github.com/PrincewillIroka/World-Universities-API
 
+# Note
+This app is intended for informational purposes only, you could still make a proper search online for any information you find here.
+
+# Want to contribute or need to see some improvements?
+I would love that, please create an issue or send a PR.
+
 ### License
 Copyright 2020 **Princewill Iroka**
 

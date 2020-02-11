@@ -20,7 +20,7 @@ https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversit
 ![Favourites](https://imgur.com/n036bLQ.png)
 
 ### API
-Information is gotten from this API https://world-universities-api.herokuapp.com/
+Information is gotten from this API https://github.com/PrincewillIroka/World-Universities-API
 
 ### License
 Copyright 2020 **Princewill Iroka**

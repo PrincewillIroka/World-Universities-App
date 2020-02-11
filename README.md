@@ -13,11 +13,11 @@ https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversit
 
 ### App User Interface
 
-![Home Screen](https://imgur.com/i0rMzL2.png)
-![Nav Menu](https://imgur.com/QzTIyKk.png)
+![Home Screen](https://imgur.com/KOn6bgw.png)
+![Nav Menu](https://imgur.com/omN4L2E.png)
 
-![Suggestions](https://imgur.com/ZqssuNj.png)
-![Favourites](https://imgur.com/YpDRroV.png)
+![Suggestions](https://imgur.com/994OZCB.png)
+![Favourites](https://imgur.com/n036bLQ.png)
 
 ### API
 Information is gotten from this API https://world-universities-api.herokuapp.com/

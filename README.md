@@ -15,7 +15,6 @@ https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversit
 
 ![Home Screen](https://imgur.com/KOn6bgw.png)
 ![Nav Menu](https://imgur.com/omN4L2E.png)
-
 ![Suggestions](https://imgur.com/994OZCB.png)
 ![Favourites](https://imgur.com/n036bLQ.png)
 
@@ -24,6 +23,9 @@ Information is gotten from this API https://github.com/PrincewillIroka/World-Uni
 
 # Note
 This app is intended for informational purposes only, you could still make a proper search online for any information you find here.
+
+# Like this project?
+Don't forget to star :star2: this repo.
 
 # Want to contribute or need to see some improvements?
 I would love that, please create an issue or send a PR.

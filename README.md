@@ -23,6 +23,18 @@ https://play.google.com/store/apps/details?id=com.princewilliroka.worlduniversit
 ### API
 Information is gotten from this API https://github.com/PrincewillIroka/World-Universities-API
 
+### Usage and Setup
+- Clone this repo. Go into the root folder and run *yarn* to install the dependencies.
+- Create a .env file in the root folder of this project.
+- Go to http://api.ipstack.com, and get a free access key.
+- Set the access key you got as ACCESS_KEY in .env file.
+- Clone the API from https://github.com/PrincewillIroka/World-Universities-API and run *yarn* to install the dependencies.
+- Create a .env file in the root folder of the API you just cloned.
+- In the .env file for the API, set NODE_ENV either as 'dev' or 'production' depending on your environment and set PORT too e.g 4500
+- Run *yarn start* to start the server (API). 
+- Go back to the .env file in the root folder of this project and set API key to the url of your server e.g API=http://localhost:4500
+- Connect your machine to a mobile device or emulator and run *yarn start* to see the app. 
+
 ### Note
 This app is intended for informational purposes only, you could still make a proper search online for any information you find here.
 

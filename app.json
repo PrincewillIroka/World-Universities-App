@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Worl-Universities-App",
-    "slug": "Worl-Universities-App",
+    "name": "World-Universities-App",
+    "slug": "World-Universities-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

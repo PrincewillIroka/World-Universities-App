@@ -65,9 +65,6 @@ export default function Home() {
       limit: state.limit,
     };
 
-    console.log({ newUrl });
-    console.log({ data });
-
     fetch(newUrl, {
       method: "POST",
       body: JSON.stringify(data),

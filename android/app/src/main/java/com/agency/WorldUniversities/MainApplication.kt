@@ -1,4 +1,4 @@
-package com.princewilliroka.WorldUniversitiesApp
+package com.princewilliroka.worlduniversitiesapp
 
 import android.app.Application
 import android.content.res.Configuration

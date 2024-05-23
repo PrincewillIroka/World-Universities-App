@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "World-Universities-App",
-    "slug": "World-Universities-App",
+    "name": "WorldUniversities",
+    "slug": "WorldUniversities",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,14 +13,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.princewilliroka.WorldUniversitiesApp"
+      "bundleIdentifier": "com.princewilliroka.worlduniversitiesapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.princewilliroka.WorldUniversitiesApp"
+      "package": "com.princewilliroka.worlduniversitiesapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,6 +39,11 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3e92a109-858c-47d2-b407-d7d7a7241686"
+      }
+    }
   }
 }

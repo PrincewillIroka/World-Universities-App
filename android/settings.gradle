@@ -1,4 +1,4 @@
-rootProject.name = 'World-Universities-App'
+rootProject.name = 'WorldUniversities'
 
 dependencyResolutionManagement {
   versionCatalogs {

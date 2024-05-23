@@ -1,4 +1,4 @@
-package com.princewilliroka.WorldUniversitiesApp
+package com.princewilliroka.worlduniversitiesapp
 
 import android.os.Build
 import android.os.Bundle

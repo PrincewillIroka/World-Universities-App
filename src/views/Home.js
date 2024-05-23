@@ -57,16 +57,13 @@ export default function Home() {
   };
 
   fetchUniversitiesData = () => {
-    const newUrl = `${EXPO_PUBLIC_SERVER_API}/${state.criterion}`;
+    const newUrl = `${EXPO_PUBLIC_SERVER_API}/api/${state.criterion}`;
     const data = {
       name: state.name,
       country: state.country,
       skip: state.skip,
       limit: state.limit,
     };
-
-    console.log({ newUrl });
-    console.log({ data });
 
     fetch(newUrl, {
       method: "POST",

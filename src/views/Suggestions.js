@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
-  Keyboard
+  Keyboard,
 } from "react-native";
-// import { API } from "react-native-dotenv";
 
+const { EXPO_PUBLIC_SERVER_API } = process.env;
 
 export default function About() {
   const [state, setState] = useState({
@@ -20,7 +20,7 @@ export default function About() {
     isMessageShown: false,
     message: "",
     hasResponse: false,
-    isLoading: false
+    isLoading: false,
   });
 
   handleSubmit = () => {
@@ -35,23 +35,23 @@ export default function About() {
       setState({
         ...state,
         isMessageShown: true,
-        message: "Name of University cannot be empty"
+        message: "Name of University cannot be empty",
       });
     } else {
-      const newUrl = "/suggestAUniversity";
+      const newUrl = `${EXPO_PUBLIC_SERVER_API}/api/suggestAUniversity`;
       const data = { name, website, country };
 
-      setState({ ...state, message: "", isLoading: true })
+      setState({ ...state, message: "", isLoading: true });
 
       fetch(newUrl, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           setState({
             ...state,
             hasResponse: true,
@@ -60,7 +60,7 @@ export default function About() {
             website: "",
             country: "",
             message: `Thanks. We'll review your suggestion`,
-            isLoading: false
+            isLoading: false,
           });
         });
     }
@@ -84,7 +84,7 @@ export default function About() {
                   ? styles.errorText
                   : state.hasResponse
                   ? styles.hasResponseText
-                  : null
+                  : null,
               ]}
             >
               {state.message}
@@ -94,13 +94,13 @@ export default function About() {
             placeholder="Name of University"
             style={styles.tInput}
             value={state.nameOfUniverity}
-            onChangeText={nameOfUniverity => {
+            onChangeText={(nameOfUniverity) => {
               setState({
                 ...state,
                 nameOfUniverity,
                 isMessageShown: false,
                 message: "",
-                hasResponse: false
+                hasResponse: false,
               });
             }}
           />
@@ -108,13 +108,13 @@ export default function About() {
             placeholder="Website"
             style={styles.tInput}
             value={state.website}
-            onChangeText={website => {
+            onChangeText={(website) => {
               setState({
                 ...state,
                 website,
                 isMessageShown: false,
                 message: "",
-                hasResponse: false
+                hasResponse: false,
               });
             }}
           />
@@ -122,22 +122,22 @@ export default function About() {
             placeholder="Country"
             style={styles.tInput}
             value={state.country}
-            onChangeText={country => {
+            onChangeText={(country) => {
               setState({
                 ...state,
                 country,
                 isMessageShown: false,
                 message: "",
-                hasResponse: false
+                hasResponse: false,
               });
             }}
           />
           <TouchableOpacity
             style={styles.submitButtonStyle}
             activeOpacity={0.5}
-            onPress={()=>{
-              if(!state.isLoading){
-                this.handleSubmit()
+            onPress={() => {
+              if (!state.isLoading) {
+                this.handleSubmit();
               }
             }}
           >
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   container2: {
     alignItems: "center",
@@ -174,11 +174,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   titleText: {
     marginTop: 10,
@@ -187,14 +187,14 @@ const styles = StyleSheet.create({
     width: "80%",
     fontSize: 15,
     fontWeight: "bold",
-    color: "#666"
+    color: "#666",
   },
   container3: {
     display: "flex",
     flexDirection: "column",
     width: "100%",
     alignItems: "center",
-    paddingTop: 25
+    paddingTop: 25,
   },
   tInput: {
     height: 40,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     borderRadius: 3,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
   },
   submitButtonStyle: {
     width: "50%",
@@ -222,21 +222,21 @@ const styles = StyleSheet.create({
     shadowColor: "#fff",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
-    shadowRadius: 2
+    shadowRadius: 2,
   },
   submitTextStyle: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 17
+    fontSize: 17,
   },
   errorText: {
     color: "red",
     fontSize: 12,
-    marginBottom: 5
+    marginBottom: 5,
   },
   hasResponseText: {
     color: "green",
     fontSize: 12,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });

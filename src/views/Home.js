@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import SearchLayout from "../components/SearchLayout";
 import MainLayout from "../components/MainLayout";
 
-const { EXPO_PUBLIC_SERVER_API } = process.env;
+const { EXPO_PUBLIC_API_URL } = process.env;
 
 export default function Home() {
   const [state, setState] = useState({
@@ -57,7 +57,7 @@ export default function Home() {
   };
 
   fetchUniversitiesData = () => {
-    const newUrl = `${EXPO_PUBLIC_SERVER_API}/api/${state.criterion}`;
+    const newUrl = `${EXPO_PUBLIC_API_URL}/api/${state.criterion}`;
     const data = {
       name: state.name,
       country: state.country,

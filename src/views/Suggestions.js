@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 
-const { EXPO_PUBLIC_SERVER_API } = process.env;
+const { EXPO_PUBLIC_API_URL } = process.env;
 
 export default function About() {
   const [state, setState] = useState({
@@ -38,7 +38,7 @@ export default function About() {
         message: "Name of University cannot be empty",
       });
     } else {
-      const newUrl = `${EXPO_PUBLIC_SERVER_API}/api/suggestAUniversity`;
+      const newUrl = `${EXPO_PUBLIC_API_URL}/api/suggestAUniversity`;
       const data = { name, website, country };
 
       setState({ ...state, message: "", isLoading: true });

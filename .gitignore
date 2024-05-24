@@ -35,3 +35,5 @@ yarn-error.*
 *.tsbuildinfo
 
 *.env
+
+credentials.json
